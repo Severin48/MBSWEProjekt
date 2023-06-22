@@ -109,7 +109,6 @@ func generateBodies(amount int) ([]body, []body_Value) {
 }
 
 func Task2() {
-	fmt.Printf("\nStarting task 2\n\n")
 	body_amount := 10000000
 	var cube_counter float64
 	cube_counter = 0

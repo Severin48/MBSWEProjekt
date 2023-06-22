@@ -24,22 +24,8 @@ func (s square) area() int {
 	return s.length * s.length
 }
 
-func (r *rectangle) scale(x int) {
-	r.length = r.length * x
-	r.width = r.width * x
-}
-
-func (s *square) scale(x int) {
-	s.length = s.length * x
-}
-
 type shape interface {
 	area() int
-}
-
-type shapeExt interface {
-	shape
-	scale(int)
 }
 
 func sumArea(x, y shape) int {
@@ -99,6 +85,10 @@ func generateShapes(amount int) ([]shape, []shape_Value) {
 	rand.Seed(time.Now().UnixNano())
 	shapes := make([]shape, amount)
 	shape_values := make([]shape_Value, amount)
+	var rect_counter float64
+	rect_counter = 0
+	var square_counter float64
+	square_counter = 0
 
 	for i := 0; i < amount; i++ {
 		// Determine whether to create a rectangle or a square
@@ -114,6 +104,7 @@ func generateShapes(amount int) ([]shape, []shape_Value) {
 					return v.(rectangle).area()
 				},
 			}
+			rect_counter++
 		} else {
 			s := square{rand.Intn(100) + 1}
 			shapes[i] = s
@@ -123,34 +114,21 @@ func generateShapes(amount int) ([]shape, []shape_Value) {
 					return v.(square).area()
 				},
 			}
-		}
-	}
-
-	return shapes, shape_values
-}
-
-func Task1() {
-	shape_amount := 10000000
-	var rect_counter float64
-	rect_counter = 0
-	var square_counter float64
-	square_counter = 0
-	shapes, shape_values := generateShapes(shape_amount)
-	for _, shape := range shapes {
-		// switch s := shape.(type) {
-		switch shape.(type) {
-		case rectangle:
-			rect_counter++
-			// println("Rectangle with length", s.length, "and width", s.width)
-		case square:
 			square_counter++
-			// println("Square with size", s.length)
 		}
 	}
 
 	fmt.Printf("Rectangles: %d, Squares: %d, Ratio: %f : %f\n", int(rect_counter),
 		int(square_counter), rect_counter/square_counter,
 		square_counter/rect_counter)
+
+	return shapes, shape_values
+}
+
+func Task1() {
+	shape_amount := 10000000
+
+	shapes, shape_values := generateShapes(shape_amount)
 
 	start := time.Now()
 
@@ -171,10 +149,4 @@ func Task1() {
 
 	elapsed = time.Since(start)
 	log.Printf("Dictionary translation took %d ms", elapsed.Milliseconds())
-}
-
-func main() {
-	fmt.Printf("\nStarting task 1\n\n")
-	Task1()
-	Task2()
 }
