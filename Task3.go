@@ -46,22 +46,6 @@ func sumAreaVariant_Dict(x, y shape_Value_Variant) int {
 	return x.area(x.val) + y.area(y.val) + length
 }
 
-// func testSumAreaVariant() {
-// 	fmt.Printf("Testing Sum Area Variant\n")
-// 	fmt.Printf("%d \n", sumAreaVariant(square{1}, square{2}))
-// }
-
-// func test_DictVariant() {
-// 	fmt.Printf("Testing Dict Variant\n")
-// 	var s1 square = square{1}
-// 	var s2 square = square{2}
-
-// 	x := shape_Value_Variant{&s1, area_SqPtr_Wrapper, square_length}
-// 	y := shape_Value_Variant{&s2, area_SqPtr_Wrapper, square_length}
-
-// 	fmt.Printf("Dict test: %d \n", sumAreaVariant_Dict(x, y))
-// }
-
 func generateShapesT3(amount int) ([]shape, []shape_Value_Variant) {
 	rand.Seed(time.Now().UnixNano())
 	shapes := make([]shape, amount)
