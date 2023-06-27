@@ -39,10 +39,12 @@ func sumAreaVariant_Dict(x, y shape_Value_Variant) int {
 	}
 
 	length := 0
-	if y.length != nil {
-		length = y.length(y.val)
+	// Check whether y is a square
+	if sq, ok := y.val.(square); ok {
+		length = sq.length
 	}
 
+	// Add 0 for rectangle and y.length for square
 	return x.area(x.val) + y.area(y.val) + length
 }
 
